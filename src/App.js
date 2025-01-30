@@ -19,6 +19,10 @@ function App() {
     const glucocorticoides = document.querySelector("select[placeholder='Glucocorticoides']").value;
     const tscore = document.querySelector("select[placeholder='T-Score']").value;
 
+
+    const fomDiabetes = parseFloat(document.querySelector("input[placeholder='FOM diabetes']").value) || 0;
+    const fqDiabetes = parseFloat(document.querySelector("input[placeholder='FQ diabetes']").value) || 0;
+
     const calculations = [];
     const newCalculatedValues = { fraturas: null, quedas: null, glucocorticoides: null, tscore: null };
 
@@ -100,10 +104,18 @@ function App() {
       }
     };
 
+    const includeDiabetes = () => {
+      if (fomDiabetes && fqDiabetes) {
+        calculations.push({ FOM: fomDiabetes, FQ: fqDiabetes, group: "Diabetes [5]" });
+        hasAdjustment = true;
+      }
+    };
+
     calculateForFraturas();
     calculateForQuedas();
     calculateForGlucocorticoides();
     calculateForTScore();
+    includeDiabetes();
 
     if (!hasAdjustment) {
       setResult({ FOM: null, FQ: null, group: "Nenhum ajuste selecionado" });
@@ -127,6 +139,8 @@ function App() {
   const handleReset = () => {
     document.querySelector("input[placeholder='FOM']").value = "";
     document.querySelector("input[placeholder='FQ']").value = "";
+    document.querySelector("input[placeholder='FOM diabetes']").value = "";
+    document.querySelector("input[placeholder='FQ diabetes']").value = "";
     
     document.querySelectorAll("select").forEach(select => {
       select.value = "";
@@ -235,6 +249,16 @@ function App() {
                 <option value=">=3">3</option>
               </select>
               {calculatedValues.tscore && <p className="calc-result">{calculatedValues.tscore}</p>}
+            </div>
+            <div className="text-block">
+              <div className="text">
+                <h2>Diabetes tipo II [5]</h2>
+                <p>Presença de Diabetes tipo II</p>
+              </div>
+            <div className="inputs-row-diabetes">
+              <input type="number" placeholder="FOM diabetes" />
+              <input type="number" placeholder="FQ diabetes" />
+            </div>
             </div>
           </div>
           <div className="result-div">

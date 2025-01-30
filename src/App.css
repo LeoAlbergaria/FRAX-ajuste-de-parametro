@@ -101,14 +101,16 @@ body {
   margin-bottom: 10px;
 }
 
-.inputs-row {
+.inputs-row,
+.inputs-row-diabetes {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
   justify-content: center; 
 }
 
-.inputs-row input {
+.inputs-row input,
+.inputs-row-diabetes input {
   width: 100px;
   padding: 8px;
   font-size: 1rem;
@@ -121,18 +123,26 @@ body {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.inputs-row input:focus {
+.inputs-row-diabetes input {
+  width: 40%;
+}
+
+.inputs-row input:focus,
+.inputs-row-diabetes input:focus {
   border-color: #0056b3;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 .inputs-row input::-webkit-inner-spin-button,
-.inputs-row input::-webkit-outer-spin-button {
+.inputs-row input::-webkit-outer-spin-button,
+.inputs-row-diabetes input::-webkit-inner-spin-button,
+.inputs-row-diabetes input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.inputs-row input[type="number"] {
+.inputs-row input[type="number"],
+.inputs-row-diabetes input[type="number"] {
   -moz-appearance: textfield;
 }
 
