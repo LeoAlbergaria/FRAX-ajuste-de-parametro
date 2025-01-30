@@ -196,20 +196,44 @@ body {
 }
 
 .calculate-button {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  font-weight: bold;
   color: white;
   background-color: #007bff;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
+
+.calculate-button,
+.reset-button {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 150px;
+  height: 45px;
+  text-align: center;
+}
+
 
 .calculate-button:hover {
   background-color: #0056b3;
 }
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.reset-button {
+  color: #007bff; /* Same color as "Calcular" button */
+  background-color: transparent;
+  border: 2px solid #007bff; /* Stroke matching "Calcular" button */
+}
+
+.reset-button:hover {
+  background-color: rgba(0, 123, 255, 0.1); /* Light transparent blue on hover */
+}
+
 
 /* Media Queries for Responsiveness */
 @media screen and (max-width: 1024px) {

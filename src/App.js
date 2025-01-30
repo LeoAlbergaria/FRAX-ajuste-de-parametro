@@ -15,7 +15,6 @@ function App() {
 
     const calculations = [];
 
-    // Add group information to calculations
     const calculateForFraturas = () => {
       let fomTemp = fom;
       let fqTemp = fq;
@@ -81,19 +80,28 @@ function App() {
     calculateForGlucocorticoides();
     calculateForTScore();
 
-    // Find the best result and track the group
     const bestResult = calculations.reduce((best, current) => {
       const bestSum = best.FOM + best.FQ;
       const currentSum = current.FOM + current.FQ;
       return currentSum > bestSum ? current : best;
     });
 
-    // Update the result state
     setResult({
       FOM: bestResult.FOM.toFixed(1),
       FQ: bestResult.FQ.toFixed(1),
       group: bestResult.group,
     });
+  };
+
+  const handleReset = () => {
+    document.querySelector("input[placeholder='FOM']").value = "";
+    document.querySelector("input[placeholder='FQ']").value = "";
+    
+    document.querySelectorAll("select").forEach(select => {
+      select.value = "";
+    });
+
+    setResult({ FOM: null, FQ: null, group: null });
   };
 
   return (
@@ -200,9 +208,10 @@ function App() {
                   <p>FOM: {result.FOM} FQ: {result.FQ}</p>
                 </div>
               )}
-            <button className="calculate-button" onClick={handleCalculate}>
-              Calcular
-            </button>
+            <div className="button-group">
+              <button className="calculate-button" onClick={handleCalculate}>Calcular</button>
+              <button className="reset-button" onClick={handleReset}>Limpar</button>
+            </div>
           </div>
         </div>
       </div>
