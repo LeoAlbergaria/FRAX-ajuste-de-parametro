@@ -28,7 +28,6 @@ body {
   max-width: 1200px;
   min-height: 80%;
   height: auto; /* Allow height to adapt for small screens */
-  gap: 20px;
 }
 
 /* Left Part */
@@ -105,9 +104,8 @@ body {
 .inputs-row {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
   flex-wrap: wrap;
-  justify-content: center; /* Center on small screens */
+  justify-content: center; 
 }
 
 .inputs-row input {
@@ -128,7 +126,6 @@ body {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Remove spinner arrows for number input */
 .inputs-row input::-webkit-inner-spin-button,
 .inputs-row input::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -142,15 +139,14 @@ body {
 .text-blocks-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 10px;
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .text-block {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -172,6 +168,13 @@ body {
 .text-block select:focus {
   border-color: #0056b3;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.calc-result {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 /* Result Card */
@@ -225,13 +228,13 @@ body {
 }
 
 .reset-button {
-  color: #007bff; /* Same color as "Calcular" button */
+  color: #007bff; 
   background-color: transparent;
-  border: 2px solid #007bff; /* Stroke matching "Calcular" button */
+  border: 2px solid #007bff;
 }
 
 .reset-button:hover {
-  background-color: rgba(0, 123, 255, 0.1); /* Light transparent blue on hover */
+  background-color: rgba(0, 123, 255, 0.1);
 }
 
 

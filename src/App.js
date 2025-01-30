@@ -3,6 +3,12 @@ import "./App.css";
 
 function App() {
   const [result, setResult] = useState({ FOM: null, FQ: null, group: null });
+  const [calculatedValues, setCalculatedValues] = useState({
+    fraturas: null,
+    quedas: null,
+    glucocorticoides: null,
+    tscore: null,
+  });
 
   const handleCalculate = () => {
     const fom = parseFloat(document.querySelector("input[placeholder='FOM']").value) || 0;
@@ -14,6 +20,9 @@ function App() {
     const tscore = document.querySelector("select[placeholder='T-Score']").value;
 
     const calculations = [];
+    const newCalculatedValues = { fraturas: null, quedas: null, glucocorticoides: null, tscore: null };
+
+    let hasAdjustment = false;
 
     const calculateForFraturas = () => {
       let fomTemp = fom;
@@ -29,8 +38,12 @@ function App() {
         fomTemp *= 1.3;
         fqTemp *= 1.3;
       }
+      newCalculatedValues.fraturas = `FOM: ${fomTemp.toFixed(1)} | FQ: ${fqTemp.toFixed(1)}`;
 
-      calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "Fraturas [1]" });
+      if (fraturas) {
+        calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "Fraturas [1]" });
+        hasAdjustment = true;
+      }
     };
 
     const calculateForQuedas = () => {
@@ -47,8 +60,12 @@ function App() {
         fomTemp *= 1.7;
         fqTemp *= 2.0;
       }
+      newCalculatedValues.quedas = `FOM: ${fomTemp.toFixed(1)} | FQ: ${fqTemp.toFixed(1)}`;
 
-      calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "Quedas [2]" });
+      if (quedas) {
+        calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "Quedas [2]" });
+        hasAdjustment = true;
+      }
     };
 
     const calculateForGlucocorticoides = () => {
@@ -59,8 +76,12 @@ function App() {
         fomTemp *= 1.15;
         fqTemp *= 1.2;
       }
+      newCalculatedValues.glucocorticoides = `FOM: ${fomTemp.toFixed(1)} | FQ: ${fqTemp.toFixed(1)}`;
 
-      calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "Glucocorticoides [3]" });
+      if (glucocorticoides) {
+        calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "Glucocorticoides [3]" });
+        hasAdjustment = true;
+      }
     };
 
     const calculateForTScore = () => {
@@ -71,8 +92,12 @@ function App() {
       if (!isNaN(diferencaTScore)) {
         fomTemp *= 1 + 0.1 * Math.round(diferencaTScore);
       }
+      newCalculatedValues.tscore = `FOM: ${fomTemp.toFixed(1)} | FQ: ${fqTemp.toFixed(1)}`;
 
-      calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "T-Score [4]" });
+      if (tscore) {
+        calculations.push({ FOM: fomTemp, FQ: fqTemp, group: "T-Score [4]" });
+        hasAdjustment = true;
+      }
     };
 
     calculateForFraturas();
@@ -80,17 +105,23 @@ function App() {
     calculateForGlucocorticoides();
     calculateForTScore();
 
-    const bestResult = calculations.reduce((best, current) => {
-      const bestSum = best.FOM + best.FQ;
-      const currentSum = current.FOM + current.FQ;
-      return currentSum > bestSum ? current : best;
-    });
+    if (!hasAdjustment) {
+      setResult({ FOM: null, FQ: null, group: "Nenhum ajuste selecionado" });
+    } else {
+      setCalculatedValues(newCalculatedValues);
+      const bestResult = calculations.reduce((best, current) => {
+        const bestSum = best.FOM + best.FQ;
+        const currentSum = current.FOM + current.FQ;
+        return currentSum > bestSum ? current : best;
+      });
 
-    setResult({
-      FOM: bestResult.FOM.toFixed(1),
-      FQ: bestResult.FQ.toFixed(1),
-      group: bestResult.group,
-    });
+      setResult({
+        FOM: bestResult.FOM.toFixed(1),
+        FQ: bestResult.FQ.toFixed(1),
+        group: bestResult.group,
+      });
+    }
+
   };
 
   const handleReset = () => {
@@ -102,6 +133,7 @@ function App() {
     });
 
     setResult({ FOM: null, FQ: null, group: null });
+    setCalculatedValues({ fraturas: null, quedas: null, glucocorticoides: null, tscore: null });
   };
 
   return (
@@ -153,6 +185,7 @@ function App() {
                 <option value="3">3</option>
                 <option value=">=4">≥ 4</option>
               </select>
+              {calculatedValues.fraturas && <p className="calc-result">{calculatedValues.fraturas}</p>}
             </div>
             <div className="text-block">
               <div className="text">
@@ -169,6 +202,7 @@ function App() {
                 <option value="2">2</option>
                 <option value=">=3">≥ 3</option>
               </select>
+              {calculatedValues.quedas && <p className="calc-result">{calculatedValues.quedas}</p>}
             </div>
             <div className="text-block">
               <div className="text">
@@ -183,6 +217,7 @@ function App() {
                 <option value="sim">Sim</option>
                 <option value="nao">Não</option>
               </select>
+              {calculatedValues.glucocorticoides && <p className="calc-result">{calculatedValues.glucocorticoides}</p>}
             </div>
             <div className="text-block">
               <div className="text">
@@ -199,15 +234,22 @@ function App() {
                 <option value="2">2</option>
                 <option value=">=3">3</option>
               </select>
+              {calculatedValues.tscore && <p className="calc-result">{calculatedValues.tscore}</p>}
             </div>
           </div>
           <div className="result-div">
-              {result.FOM && result.FQ && (
-            <div className="result-card">
-                  <p>Valores ajustados utilizando o grupo: <strong>{result.group}</strong></p>
-                  <p>FOM: {result.FOM} FQ: {result.FQ}</p>
-                </div>
-              )}
+          {result && result.group && (
+    <div className="result-card">
+      {result.group === "Nenhum ajuste selecionado" ? (
+        <p><strong>{result.group}</strong></p>
+      ) : (
+        <>
+          <p>Valores ajustados utilizando o grupo: <strong>{result.group}</strong></p>
+          <p>FOM: {result.FOM} | FQ: {result.FQ}</p>
+        </>
+      )}
+    </div>
+)}
             <div className="button-group">
               <button className="calculate-button" onClick={handleCalculate}>Calcular</button>
               <button className="reset-button" onClick={handleReset}>Limpar</button>
