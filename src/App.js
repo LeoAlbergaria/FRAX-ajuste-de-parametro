@@ -182,7 +182,7 @@ function App() {
             Doutor em Ciências, sob a orientação da Profa. Dra. Marise
             Lazaretti-Castro e co-orientação do Prof. Dr. Cristiano Augusto de Freitas
             Zerbini. A versão 2.0 deste aplicativo foi implementada na gestão do Dr.
-            Sergio Setsuo Maeda em julho de 2024.
+            Sergio Setsuo Maeda em julho de 2024. LEMBRAR DE TROCAR NOME DO PRESIDENTE QUE MUDOU
           </p>
         </div>
 
