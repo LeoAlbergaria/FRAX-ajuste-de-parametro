@@ -23,6 +23,10 @@ function App() {
     const fomDiabetes = parseFloat(document.querySelector("input[placeholder='FOM diabetes']").value) || 0;
     const fqDiabetes = parseFloat(document.querySelector("input[placeholder='FQ diabetes']").value) || 0;
 
+
+    const fomNovo = parseFloat(document.querySelector("input[placeholder='FOM ...']").value) || 0;
+    const fqNovo = parseFloat(document.querySelector("input[placeholder='FQ ...']").value) || 0;
+
     const calculations = [];
     const newCalculatedValues = { fraturas: null, quedas: null, glucocorticoides: null, tscore: null };
 
@@ -111,11 +115,19 @@ function App() {
       }
     };
 
+    const includeNovo = () => {
+      if (fomNovo && fqNovo) {
+        calculations.push({ FOM: fomNovo, FQ: fqNovo, group: "Novo [6]" });
+        hasAdjustment = true;
+      }
+    };
+
     calculateForFraturas();
     calculateForQuedas();
     calculateForGlucocorticoides();
     calculateForTScore();
     includeDiabetes();
+    includeNovo();
 
     if (!hasAdjustment) {
       setResult({ FOM: null, FQ: null, group: "Nenhum ajuste selecionado" });
@@ -258,6 +270,16 @@ function App() {
             <div className="inputs-row-diabetes">
               <input type="number" placeholder="FOM diabetes" />
               <input type="number" placeholder="FQ diabetes" />
+            </div>
+            </div>
+            <div className="text-block">
+              <div className="text">
+                <h2>NOVO PARAMETRO [6]</h2>
+                <p>Novo parametro</p>
+              </div>
+            <div className="inputs-row-diabetes">
+              <input type="number" placeholder="FOM ..." />
+              <input type="number" placeholder="FQ ..." />
             </div>
             </div>
           </div>
