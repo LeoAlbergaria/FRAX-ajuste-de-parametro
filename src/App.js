@@ -24,8 +24,8 @@ function App() {
     const fqDiabetes = parseFloat(document.querySelector("input[placeholder='FQ diabetes']").value) || 0;
 
 
-    const fomNovo = parseFloat(document.querySelector("input[placeholder='FOM ...']").value) || 0;
-    const fqNovo = parseFloat(document.querySelector("input[placeholder='FQ ...']").value) || 0;
+    const fomTBS = parseFloat(document.querySelector("input[placeholder='FOM TBS']").value) || 0;
+    const fqTBS = parseFloat(document.querySelector("input[placeholder='FQ TBS']").value) || 0;
 
     const calculations = [];
     const newCalculatedValues = { fraturas: null, quedas: null, glucocorticoides: null, tscore: null };
@@ -115,9 +115,9 @@ function App() {
       }
     };
 
-    const includeNovo = () => {
-      if (fomNovo && fqNovo) {
-        calculations.push({ FOM: fomNovo, FQ: fqNovo, group: "Novo [6]" });
+    const includeTBS = () => {
+      if (fomTBS && fqTBS) {
+        calculations.push({ FOM: fomTBS, FQ: fqTBS, group: "TBS [6]" });
         hasAdjustment = true;
       }
     };
@@ -127,16 +127,16 @@ function App() {
     calculateForGlucocorticoides();
     calculateForTScore();
     includeDiabetes();
-    includeNovo();
+    includeTBS();
 
     if (!hasAdjustment) {
       setResult({ FOM: null, FQ: null, group: "Nenhum ajuste selecionado" });
     } else {
       setCalculatedValues(newCalculatedValues);
       const bestResult = calculations.reduce((best, current) => {
-        const bestSum = best.FOM + best.FQ;
-        const currentSum = current.FOM + current.FQ;
-        return currentSum > bestSum ? current : best;
+        const bestScore = best.FOM / 16 + best.FQ / 6;
+        const currentScore = current.FOM / 16 + current.FQ / 6;
+        return currentScore > bestScore ? current : best;
       });
 
       setResult({
@@ -153,6 +153,9 @@ function App() {
     document.querySelector("input[placeholder='FQ']").value = "";
     document.querySelector("input[placeholder='FOM diabetes']").value = "";
     document.querySelector("input[placeholder='FQ diabetes']").value = "";
+    document.querySelector("input[placeholder='FOM TBS']").value = "";
+    document.querySelector("input[placeholder='FQ TBS']").value = "";
+    
     
     document.querySelectorAll("select").forEach(select => {
       select.value = "";
@@ -182,7 +185,7 @@ function App() {
             Doutor em Ciências, sob a orientação da Profa. Dra. Marise
             Lazaretti-Castro e co-orientação do Prof. Dr. Cristiano Augusto de Freitas
             Zerbini. A versão 2.0 deste aplicativo foi implementada na gestão do Dr.
-            Sergio Setsuo Maeda em julho de 2024. LEMBRAR DE TROCAR NOME DO PRESIDENTE QUE MUDOU
+            Sergio Setsuo Maeda em julho de 2024.
           </p>
         </div>
 
@@ -274,12 +277,12 @@ function App() {
             </div>
             <div className="text-block">
               <div className="text">
-                <h2>NOVO PARAMETRO [6]</h2>
-                <p>Novo parametro</p>
+                <h2>TBS [6]</h2>
+                <p>Ajuste pelo TBS (Trabecular bone score)</p>
               </div>
             <div className="inputs-row-diabetes">
-              <input type="number" placeholder="FOM ..." />
-              <input type="number" placeholder="FQ ..." />
+              <input type="number" placeholder="FOM TBS" />
+              <input type="number" placeholder="FQ TBS" />
             </div>
             </div>
           </div>
