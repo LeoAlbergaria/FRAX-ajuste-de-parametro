@@ -9,6 +9,7 @@ function App() {
     glucocorticoides: null,
     tscore: null,
   });
+  const [hasDensitometria, setHasDensitometria] = useState(false);
 
   const handleCalculate = () => {
     const fom = parseFloat(document.querySelector("input[placeholder='FOM']").value) || 0;
@@ -20,10 +21,8 @@ function App() {
     const glucocorticoides = document.querySelector("select[placeholder='Glucocorticoides']").value;
     const tscore = document.querySelector("select[placeholder='T-Score']").value;
 
-
     const fomDiabetes = parseFloat(document.querySelector("input[placeholder='FOM diabetes']").value) || 0;
     const fqDiabetes = parseFloat(document.querySelector("input[placeholder='FQ diabetes']").value) || 0;
-
 
     const fomTBS = parseFloat(document.querySelector("input[placeholder='FOM TBS']").value) || 0;
     const fqTBS = parseFloat(document.querySelector("input[placeholder='FQ TBS']").value) || 0;
@@ -129,8 +128,6 @@ function App() {
     calculateForTScore();
     includeDiabetes();
     includeTBS();
-
-
 
     const FOMThresholdsByAge = {
       40: { medium: 0.9, high: 1.4 },
@@ -240,10 +237,125 @@ function App() {
       90: { medium: 2.3, high: 3.7 },
     };  
 
-    function getRiskLevel(value, thresholds) {
-      if (value >= thresholds.high) return 2;   
-      if (value >= thresholds.medium) return 1; 
-      return 0;                  
+    const FOMThresholdsByAgeDensito = {
+      40: { medium: 0.4, high: 1.1, veryHigh: 1.4 },
+      41: { medium: 0.4, high: 1.2, veryHigh: 1.6 },
+      42: { medium: 0.5, high: 1.2, veryHigh: 1.6 },
+      43: { medium: 0.5, high: 1.3, veryHigh: 1.8 },
+      44: { medium: 0.5, high: 1.4, veryHigh: 1.9 },
+      45: { medium: 0.6, high: 1.6, veryHigh: 2.1 },
+      46: { medium: 0.6, high: 1.8, veryHigh: 2.4 },
+      47: { medium: 0.7, high: 1.9, veryHigh: 2.6 },
+      48: { medium: 0.8, high: 2.0, veryHigh: 2.7 },
+      49: { medium: 0.8, high: 2.3, veryHigh: 3.0 },
+      50: { medium: 0.9, high: 2.4, veryHigh: 3.2 },
+      51: { medium: 1.0, high: 2.6, veryHigh: 3.5 },
+      52: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      53: { medium: 1.2, high: 3.0, veryHigh: 4.0 },
+      54: { medium: 1.3, high: 3.2, veryHigh: 4.3 },
+      55: { medium: 1.4, high: 3.5, veryHigh: 4.6 },
+      56: { medium: 1.5, high: 3.8, veryHigh: 5.1 },
+      57: { medium: 1.6, high: 4.1, veryHigh: 5.4 },
+      58: { medium: 1.7, high: 4.4, veryHigh: 5.9 },
+      59: { medium: 1.9, high: 4.8, veryHigh: 6.4 },
+      60: { medium: 2.1, high: 5.2, veryHigh: 6.9 },
+      61: { medium: 2.2, high: 5.5, veryHigh: 7.4 },
+      62: { medium: 2.4, high: 6.0, veryHigh: 8.0 },
+      63: { medium: 2.6, high: 6.4, veryHigh: 8.5 },
+      64: { medium: 2.8, high: 6.7, veryHigh: 9.0 },
+      65: { medium: 2.9, high: 7.1, veryHigh: 9.4 },
+      66: { medium: 3.1, high: 7.4, veryHigh: 9.9 },
+      67: { medium: 3.3, high: 7.8, veryHigh: 10.4 },
+      68: { medium: 3.5, high: 8.2, veryHigh: 10.9 },
+      69: { medium: 3.6, high: 8.5, veryHigh: 11.4 },
+      70: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      71: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      72: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      73: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      74: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      75: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      76: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      77: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      78: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      79: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      80: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      81: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      82: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      83: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      84: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      85: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      86: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      87: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      88: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      89: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
+      90: { medium: 3.8, high: 8.8, veryHigh: 11.7 }
+    };
+    
+    const FQThresholdsByAgeDensito = {
+      40: { medium: 0.0, high: 0.1, veryHigh: 0.2 },
+      41: { medium: 0.0, high: 0.1, veryHigh: 0.2 },
+      42: { medium: 0.0, high: 0.1, veryHigh: 0.2 },
+      43: { medium: 0.0, high: 0.2, veryHigh: 0.3 },
+      44: { medium: 0.0, high: 0.2, veryHigh: 0.3 },
+      45: { medium: 0.0, high: 0.2, veryHigh: 0.3 },
+      46: { medium: 0.1, high: 0.2, veryHigh: 0.3 },
+      47: { medium: 0.1, high: 0.2, veryHigh: 0.3 },
+      48: { medium: 0.1, high: 0.4, veryHigh: 0.5 },
+      49: { medium: 0.1, high: 0.4, veryHigh: 0.5 },
+      50: { medium: 0.1, high: 0.4, veryHigh: 0.5 },
+      51: { medium: 0.1, high: 0.5, veryHigh: 0.6 },
+      52: { medium: 0.1, high: 0.5, veryHigh: 0.6 },
+      53: { medium: 0.1, high: 0.5, veryHigh: 0.6 },
+      54: { medium: 0.1, high: 0.6, veryHigh: 0.8 },
+      55: { medium: 0.2, high: 0.6, veryHigh: 0.8 },
+      56: { medium: 0.2, high: 0.7, veryHigh: 1.0 },
+      57: { medium: 0.2, high: 0.8, veryHigh: 1.1 },
+      58: { medium: 0.2, high: 0.8, veryHigh: 1.1 },
+      59: { medium: 0.3, high: 1.0, veryHigh: 1.3 },
+      60: { medium: 0.3, high: 1.1, veryHigh: 1.4 },
+      61: { medium: 0.3, high: 1.2, veryHigh: 1.6 },
+      62: { medium: 0.4, high: 1.3, veryHigh: 1.8 },
+      63: { medium: 0.4, high: 1.4, veryHigh: 1.9 },
+      64: { medium: 0.5, high: 1.6, veryHigh: 2.1 },
+      65: { medium: 0.6, high: 1.7, veryHigh: 2.2 },
+      66: { medium: 0.6, high: 1.9, veryHigh: 2.6 },
+      67: { medium: 0.7, high: 2.0, veryHigh: 2.7 },
+      68: { medium: 0.8, high: 2.3, veryHigh: 3.0 },
+      69: { medium: 1.0, high: 2.5, veryHigh: 3.4 },
+      70: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      71: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      72: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      73: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      74: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      75: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      76: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      77: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      78: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      79: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      80: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      81: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      82: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      83: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      84: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      85: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      86: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      87: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      88: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      89: { medium: 1.1, high: 2.8, veryHigh: 3.7 },
+      90: { medium: 1.1, high: 2.8, veryHigh: 3.7 }
+    };
+
+    function getRiskLevel(value, thresholds, hasDensitometria) {
+      if (hasDensitometria) {
+        if (value >= thresholds.veryHigh) return 15;
+        if (value >= thresholds.high) return 7;
+        if (value >= thresholds.medium) return 3;
+        return 1;
+      } else { 
+        if (value >= thresholds.high) return 7;
+        if (value >= thresholds.medium) return 3;
+        return 1;
+      }
     }
     
     if (!hasAdjustment) {
@@ -251,32 +363,34 @@ function App() {
     } else {
       setCalculatedValues(newCalculatedValues);
     
-      const fomThresholds = FOMThresholdsByAge[idade];
-      const fqThresholds = FQThresholdsByAge[idade];
+      const fomThresholds = hasDensitometria
+        ? FOMThresholdsByAgeDensito[idade]
+        : FOMThresholdsByAge[idade];
+    
+      const fqThresholds = hasDensitometria
+        ? FQThresholdsByAgeDensito[idade]
+        : FQThresholdsByAge[idade];
+      console.log(calculations)
     
       const bestResult = calculations.reduce((best, current) => {
-        const bestFOMRisk = getRiskLevel(best.FOM, fomThresholds);
-        const bestFQRisk = getRiskLevel(best.FQ, fqThresholds);
-        const currentFOMRisk = getRiskLevel(current.FOM, fomThresholds);
-        const currentFQRisk = getRiskLevel(current.FQ, fqThresholds);
-    
-        const bestRiskSum = bestFOMRisk + bestFQRisk;
-        const currentRiskSum = currentFOMRisk + currentFQRisk;
-    
-        if (currentRiskSum > bestRiskSum) {
+        const bestFOMWeight = getRiskLevel(best.FOM, fomThresholds, hasDensitometria);
+        const bestFQWeight = getRiskLevel(best.FQ, fqThresholds, hasDensitometria);
+        const currentFOMWeight = getRiskLevel(current.FOM, fomThresholds, hasDensitometria);
+        const currentFQWeight = getRiskLevel(current.FQ, fqThresholds, hasDensitometria);
+      
+        const bestTotal = bestFOMWeight + bestFQWeight;
+        const currentTotal = currentFOMWeight + currentFQWeight;
+      
+        if (currentTotal > bestTotal) {
           return current;
         }
-    
-        if (currentRiskSum === bestRiskSum) {
-          const bothAreHighRisk =
-            bestFOMRisk === 2 && bestFQRisk === 2 &&
-            currentFOMRisk === 2 && currentFQRisk === 2;
-    
-          if (bothAreHighRisk && current.FOM > best.FOM) {
+      
+        if (currentTotal === bestTotal) {
+          if (current.FOM > best.FOM) {
             return current;
           }
         }
-    
+      
         return best;
       });
     
@@ -285,17 +399,18 @@ function App() {
         FQ: bestResult.FQ.toFixed(1),
         group: bestResult.group,
       });
-    }
+    }    
   }
 
   const handleReset = () => {
     document.querySelector("input[placeholder='FOM']").value = "";
     document.querySelector("input[placeholder='FQ']").value = "";
+    document.querySelector("input[placeholder='Idade']").value = "";
     document.querySelector("input[placeholder='FOM diabetes']").value = "";
     document.querySelector("input[placeholder='FQ diabetes']").value = "";
     document.querySelector("input[placeholder='FOM TBS']").value = "";
     document.querySelector("input[placeholder='FQ TBS']").value = "";
-    
+    setHasDensitometria(false);
     
     document.querySelectorAll("select").forEach(select => {
       select.value = "";
@@ -339,6 +454,7 @@ function App() {
               <input type="number" placeholder="Idade" />
             </div>
           </div>
+          
           <div className="text-blocks-grid">
             <div className="text-block">
               <div className="text">
@@ -440,6 +556,18 @@ function App() {
       )}
     </div>
 )}
+
+
+          <div className="checkbox-group">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={hasDensitometria}
+                  onChange={(e) => setHasDensitometria(e.target.checked)}
+                />
+                Possui densitometria
+              </label>
+            </div>
             <div className="button-group">
               <button className="calculate-button" onClick={handleCalculate}>Calcular</button>
               <button className="reset-button" onClick={handleReset}>Limpar</button>

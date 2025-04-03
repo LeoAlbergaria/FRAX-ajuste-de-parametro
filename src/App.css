@@ -303,3 +303,24 @@ body {
     padding: 8px 16px;
   }
 }
+
+.checkbox-group {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #007bff;
+  cursor: pointer;
+}
