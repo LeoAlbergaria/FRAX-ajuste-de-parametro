@@ -435,12 +435,7 @@ function App() {
             </div>
           </div>
           <p>
-            Este aplicativo é um produto originário do Programa de Pós-graduação em
-            Endocrinologia e Metabologia da UNIFESP, construído pelo <span style={{ color: "#007bff", fontWeight: "bold" }}>Dr. Ben-Hur Albergaria</span> a partir de seus dados de pesquisa para obtenção do título de
-            Doutor em Ciências, sob a orientação da Profa. Dra. Marise
-            Lazaretti-Castro e co-orientação do Prof. Dr. Cristiano Augusto de Freitas
-            Zerbini. A versão 2.0 deste aplicativo foi implementada na gestão do Dr.
-            Sergio Setsuo Maeda em julho de 2024.
+          Esta calculadora de ajuste é um produto originário do Programa de Pós-graduação em Endocrinologia e Metabologia da UNIFESP, desenvolvida pelo Dr. Ben-Hur Albergaria a partir de seus dados de pesquisa para obtenção do título de Doutor em Ciências, sob a orientação da Profa. Dra. Marise Lazaretti-Castro e coorientação do Prof. Dr. Cristiano Augusto de Freitas Zerbini. Este novo aplicativo da calculadora de ajustes foi implementado na gestão ABRASSO 2025-2026 do presidente Dr. Marcelo Luís Steiner e do  diretor científico Dr. Diogo de Souza Domiciano em abril de 2025.
           </p>
         </div>
 
@@ -453,6 +448,17 @@ function App() {
               <input type="number" placeholder="FQ" />
               <input type="number" placeholder="Idade" />
             </div>
+          </div>
+
+          <div className="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                checked={hasDensitometria}
+                onChange={(e) => setHasDensitometria(e.target.checked)}
+              />
+              Possui densitometria
+            </label>
           </div>
           
           <div className="text-blocks-grid">
@@ -556,18 +562,6 @@ function App() {
       )}
     </div>
 )}
-
-
-          <div className="checkbox-group">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={hasDensitometria}
-                  onChange={(e) => setHasDensitometria(e.target.checked)}
-                />
-                Possui densitometria
-              </label>
-            </div>
             <div className="button-group">
               <button className="calculate-button" onClick={handleCalculate}>Calcular</button>
               <button className="reset-button" onClick={handleReset}>Limpar</button>
