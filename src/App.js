@@ -435,7 +435,7 @@ function App() {
             </div>
           </div>
           <p>
-          Esta calculadora de ajuste é um produto originário do Programa de Pós-graduação em Endocrinologia e Metabologia da UNIFESP, desenvolvida pelo Dr. Ben-Hur Albergaria a partir de seus dados de pesquisa para obtenção do título de Doutor em Ciências, sob a orientação da Profa. Dra. Marise Lazaretti-Castro e coorientação do Prof. Dr. Cristiano Augusto de Freitas Zerbini. Este novo aplicativo da calculadora de ajustes foi implementado na gestão ABRASSO 2025-2026 do presidente Dr. Marcelo Luís Steiner e do  diretor científico Dr. Diogo de Souza Domiciano em abril de 2025.
+          Esta calculadora de ajuste é um produto originário do Programa de Pós-graduação em Endocrinologia e Metabologia da UNIFESP, desenvolvida pelo Dr. Ben-Hur Albergaria a partir de seus dados de pesquisa para obtenção do título de Doutor em Ciências, sob a orientação da Profa. Dra. Marise Lazaretti-Castro e coorientação do Prof. Dr. Cristiano Augusto de Freitas Zerbini. Este novo aplicativo da calculadora de ajustes foi implementado na gestão ABRASSO 2025-2026 do presidente Dr. Marcelo Luís Steiner e do  diretor científico Dr. Diogo Souza Domiciano em abril de 2025.
           </p>
           <p>
           Esta é uma versão Beta da calculadora de ajustes do FRAX 2.0, que se encontra em fase de testes públicos.
