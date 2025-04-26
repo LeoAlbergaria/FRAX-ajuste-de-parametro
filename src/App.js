@@ -57,14 +57,15 @@ function App() {
     const calculateForQuedas = () => {
       let fomTemp = fom;
       let fqTemp = fq;
-
+      console.log("QUEDAS");
+      console.log(quedas);
       if (quedas === "1") {
         fomTemp *= 1.2;
         fqTemp *= 1.2;
       } else if (quedas === "2") {
         fomTemp *= 1.3;
         fqTemp *= 1.5;
-      } else if (quedas === ">=3") {
+      } else if (quedas === "3") {
         fomTemp *= 1.7;
         fqTemp *= 2.0;
       }
@@ -478,7 +479,7 @@ function App() {
                 <option value="<2"> 0</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value=">=4">≥ 4</option>
+                <option value="4">≥ 4</option>
               </select>
               {calculatedValues.fraturas && <p className="calc-result">{calculatedValues.fraturas}</p>}
             </div>
@@ -495,7 +496,7 @@ function App() {
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
-                <option value=">=3">≥ 3</option>
+                <option value="3">≥ 3</option>
               </select>
               {calculatedValues.quedas && <p className="calc-result">{calculatedValues.quedas}</p>}
             </div>
@@ -527,7 +528,7 @@ function App() {
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
-                <option value=">=3">3</option>
+                <option value="3">≥ 3</option>
               </select>
               {calculatedValues.tscore && <p className="calc-result">{calculatedValues.tscore}</p>}
             </div>
