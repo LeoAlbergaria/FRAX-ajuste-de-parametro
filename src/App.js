@@ -42,7 +42,7 @@ function App() {
       } else if (fraturas === "3") {
         fomTemp *= 1.2;
         fqTemp *= 1.2;
-      } else if (fraturas === ">=4") {
+      } else if (fraturas === "4") {
         fomTemp *= 1.3;
         fqTemp *= 1.3;
       }
