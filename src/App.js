@@ -8,6 +8,8 @@ function App() {
     quedas: null,
     glucocorticoides: null,
     tscore: null,
+    diabetes: null,
+    tbs: null,
   });
   const [hasDensitometria, setHasDensitometria] = useState(false);
 
@@ -28,7 +30,7 @@ function App() {
     const fqTBS = parseFloat(document.querySelector("input[placeholder='FQ TBS']").value) || 0;
 
     const calculations = [];
-    const newCalculatedValues = { fraturas: null, quedas: null, glucocorticoides: null, tscore: null };
+    const newCalculatedValues = { fraturas: null, quedas: null, glucocorticoides: null, tscore: null, diabetes: null, tbs: null };
 
     let hasAdjustment = false;
 
@@ -113,6 +115,7 @@ function App() {
       if (fomDiabetes && fqDiabetes) {
         calculations.push({ FOM: fomDiabetes, FQ: fqDiabetes, group: "Diabetes [5]" });
         hasAdjustment = true;
+      newCalculatedValues.diabetes = `FOM: ${fomDiabetes.toFixed(1)} | FQ: ${fqDiabetes.toFixed(1)}`;
       }
     };
 
@@ -120,6 +123,7 @@ function App() {
       if (fomTBS && fqTBS) {
         calculations.push({ FOM: fomTBS, FQ: fqTBS, group: "TBS [6]" });
         hasAdjustment = true;
+        newCalculatedValues.tbs = `FOM: ${fomTBS.toFixed(1)} | FQ: ${fqTBS.toFixed(1)}`;
       }
     };
 
@@ -417,7 +421,7 @@ function App() {
     });
 
     setResult({ FOM: null, FQ: null, group: null });
-    setCalculatedValues({ fraturas: null, quedas: null, glucocorticoides: null, tscore: null });
+    setCalculatedValues({ fraturas: null, quedas: null, glucocorticoides: null, tscore: null, diabetes: null, tbs: null });
   };
 
   return (
@@ -467,7 +471,7 @@ function App() {
             <div className="text-block">
               <div className="text">
                 <h2>Fraturas prévias [1]</h2>
-                <p>Número de fraturas <br/>prévias</p>
+                <p>Número de fraturas<br/>prévias</p>
               </div>
               <select placeholder="Fraturas" defaultValue="">
                 <option value="" disabled hidden>
@@ -533,22 +537,24 @@ function App() {
             <div className="text-block">
               <div className="text">
                 <h2>Diabetes tipo II [5]</h2>
-                <p>Presença de Diabetes tipo II</p>
+                <p>Presença de<br/>Diabetes tipo II</p>
               </div>
               <div className="inputs-row-diabetes">
                 <input type="number" placeholder="FOM diabetes" />
                 <input type="number" placeholder="FQ diabetes" />
               </div>
+              {calculatedValues.diabetes ? <p className="calc-result">{calculatedValues.diabetes}</p> : <p className="calc-result">FOM: - | FQ: -</p>}
             </div>
             <div className="text-block">
               <div className="text">
                 <h2>TBS [6]</h2>
-                <p>Ajuste pelo TBS (Trabecular bone score)</p>
+                <p>Ajuste pelo TBS<br/>(Trabecular bone score)</p>
               </div>
               <div className="inputs-row-diabetes">
                 <input type="number" placeholder="FOM TBS" />
                 <input type="number" placeholder="FQ TBS" />
               </div>
+              {calculatedValues.tbs ? <p className="calc-result">{calculatedValues.tbs}</p> : <p className="calc-result">FOM: - | FQ: -</p>}
             </div>
           </div>
           <div className="result-div">
