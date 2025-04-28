@@ -183,7 +183,7 @@ function App() {
       89: { medium: 7.3, high: 11.7 },
       90: { medium: 7.3, high: 11.7 },
     };
-  
+
     const FQThresholdsByAge = {
       40: { medium: 0.1, high: 0.2 },
       41: { medium: 0.1, high: 0.2 },
@@ -236,7 +236,7 @@ function App() {
       88: { medium: 2.3, high: 3.7 },
       89: { medium: 2.3, high: 3.7 },
       90: { medium: 2.3, high: 3.7 },
-    };  
+    };
 
     const FOMThresholdsByAgeDensito = {
       40: { medium: 0.4, high: 1.1, veryHigh: 1.4 },
@@ -291,7 +291,7 @@ function App() {
       89: { medium: 3.8, high: 8.8, veryHigh: 11.7 },
       90: { medium: 3.8, high: 8.8, veryHigh: 11.7 }
     };
-    
+
     const FQThresholdsByAgeDensito = {
       40: { medium: 0.0, high: 0.1, veryHigh: 0.2 },
       41: { medium: 0.0, high: 0.1, veryHigh: 0.2 },
@@ -352,55 +352,55 @@ function App() {
         if (value >= thresholds.high) return 7;
         if (value >= thresholds.medium) return 3;
         return 1;
-      } else { 
+      } else {
         if (value >= thresholds.high) return 7;
         if (value >= thresholds.medium) return 3;
         return 1;
       }
     }
-    
+
     if (!hasAdjustment) {
       setResult({ FOM: null, FQ: null, group: "Nenhum ajuste selecionado" });
     } else {
       setCalculatedValues(newCalculatedValues);
-    
+
       const fomThresholds = hasDensitometria
         ? FOMThresholdsByAgeDensito[idade]
         : FOMThresholdsByAge[idade];
-    
+
       const fqThresholds = hasDensitometria
         ? FQThresholdsByAgeDensito[idade]
         : FQThresholdsByAge[idade];
       console.log(calculations)
-    
+
       const bestResult = calculations.reduce((best, current) => {
         const bestFOMWeight = getRiskLevel(best.FOM, fomThresholds, hasDensitometria);
         const bestFQWeight = getRiskLevel(best.FQ, fqThresholds, hasDensitometria);
         const currentFOMWeight = getRiskLevel(current.FOM, fomThresholds, hasDensitometria);
         const currentFQWeight = getRiskLevel(current.FQ, fqThresholds, hasDensitometria);
-      
+
         const bestTotal = bestFOMWeight + bestFQWeight;
         const currentTotal = currentFOMWeight + currentFQWeight;
-      
+
         if (currentTotal > bestTotal) {
           return current;
         }
-      
+
         if (currentTotal === bestTotal) {
           if (current.FOM > best.FOM) {
             return current;
           }
         }
-      
+
         return best;
       });
-    
+
       setResult({
         FOM: bestResult.FOM.toFixed(1),
         FQ: bestResult.FQ.toFixed(1),
         group: bestResult.group,
       });
-    }    
+    }
   }
 
   const handleReset = () => {
@@ -412,7 +412,7 @@ function App() {
     document.querySelector("input[placeholder='FOM TBS']").value = "";
     document.querySelector("input[placeholder='FQ TBS']").value = "";
     setHasDensitometria(false);
-    
+
     document.querySelectorAll("select").forEach(select => {
       select.value = "";
     });
@@ -422,7 +422,6 @@ function App() {
   };
 
   return (
-    <div className="background-container">
       <div className="container">
         {/* Left Part */}
         <div className="left">
@@ -436,10 +435,10 @@ function App() {
             </div>
           </div>
           <p>
-          Esta calculadora de ajuste é um produto originário do Programa de Pós-graduação em Endocrinologia e Metabologia da UNIFESP, desenvolvida pelo Dr. Ben-Hur Albergaria a partir de seus dados de pesquisa para obtenção do título de Doutor em Ciências, sob a orientação da Profa. Dra. Marise Lazaretti-Castro e coorientação do Prof. Dr. Cristiano Augusto de Freitas Zerbini. Este novo aplicativo da calculadora de ajustes foi implementado na gestão ABRASSO 2025-2026 do presidente Dr. Marcelo Luís Steiner e do  diretor científico Dr. Diogo Souza Domiciano em abril de 2025.
+            Esta calculadora de ajuste é um produto originário do Programa de Pós-graduação em Endocrinologia e Metabologia da UNIFESP, desenvolvida pelo Dr. Ben-Hur Albergaria a partir de seus dados de pesquisa para obtenção do título de Doutor em Ciências, sob a orientação da Profa. Dra. Marise Lazaretti-Castro e coorientação do Prof. Dr. Cristiano Augusto de Freitas Zerbini. Este novo aplicativo da calculadora de ajustes foi implementado na gestão ABRASSO 2025-2026 do presidente Dr. Marcelo Luís Steiner e do  diretor científico Dr. Diogo Souza Domiciano em abril de 2025.
           </p>
           <p>
-          Esta é uma versão Beta da calculadora de ajustes do FRAX 2.0, que se encontra em fase de testes públicos.
+            Esta é uma versão Beta da calculadora de ajustes do FRAX 2.0, que se encontra em fase de testes públicos.
           </p>
         </div>
 
@@ -464,7 +463,7 @@ function App() {
               Possui densitometria
             </label>
           </div>
-          
+
           <div className="text-blocks-grid">
             <div className="text-block">
               <div className="text">
@@ -481,7 +480,7 @@ function App() {
                 <option value="3">3</option>
                 <option value="4">≥ 4</option>
               </select>
-              {calculatedValues.fraturas && <p className="calc-result">{calculatedValues.fraturas}</p>}
+              {calculatedValues.fraturas ? <p className="calc-result">{calculatedValues.fraturas}</p> : <p className="calc-result">FOM: - | FQ: -</p>}
             </div>
             <div className="text-block">
               <div className="text">
@@ -498,7 +497,7 @@ function App() {
                 <option value="2">2</option>
                 <option value="3">≥ 3</option>
               </select>
-              {calculatedValues.quedas && <p className="calc-result">{calculatedValues.quedas}</p>}
+              {calculatedValues.quedas ? <p className="calc-result">{calculatedValues.quedas}</p> : <p className="calc-result">FOM: - | FQ: -</p>}
             </div>
             <div className="text-block">
               <div className="text">
@@ -513,7 +512,7 @@ function App() {
                 <option value="sim">Sim</option>
                 <option value="nao">Não</option>
               </select>
-              {calculatedValues.glucocorticoides && <p className="calc-result">{calculatedValues.glucocorticoides}</p>}
+              {calculatedValues.glucocorticoides ? <p className="calc-result">{calculatedValues.glucocorticoides}</p> : <p className="calc-result">FOM: - | FQ: -</p>}
             </div>
             <div className="text-block">
               <div className="text">
@@ -530,42 +529,50 @@ function App() {
                 <option value="2">2</option>
                 <option value="3">≥ 3</option>
               </select>
-              {calculatedValues.tscore && <p className="calc-result">{calculatedValues.tscore}</p>}
+              {calculatedValues.tscore ? <p className="calc-result">{calculatedValues.tscore}</p> : <p className="calc-result">FOM: - | FQ: -</p>}
             </div>
             <div className="text-block">
               <div className="text">
                 <h2>Diabetes tipo II [5]</h2>
                 <p>Presença de Diabetes tipo II</p>
               </div>
-            <div className="inputs-row-diabetes">
-              <input type="number" placeholder="FOM diabetes" />
-              <input type="number" placeholder="FQ diabetes" />
-            </div>
+              <div className="inputs-row-diabetes">
+                <input type="number" placeholder="FOM diabetes" />
+                <input type="number" placeholder="FQ diabetes" />
+              </div>
             </div>
             <div className="text-block">
               <div className="text">
                 <h2>TBS [6]</h2>
                 <p>Ajuste pelo TBS (Trabecular bone score)</p>
               </div>
-            <div className="inputs-row-diabetes">
-              <input type="number" placeholder="FOM TBS" />
-              <input type="number" placeholder="FQ TBS" />
-            </div>
+              <div className="inputs-row-diabetes">
+                <input type="number" placeholder="FOM TBS" />
+                <input type="number" placeholder="FQ TBS" />
+              </div>
             </div>
           </div>
           <div className="result-div">
-          {result && result.group && (
-    <div className="result-card">
-      {result.group === "Nenhum ajuste selecionado" ? (
-        <p><strong>{result.group}</strong></p>
-      ) : (
-        <>
-          <p>Valores ajustados utilizando o grupo: <strong>{result.group}</strong></p>
-          <p>FOM: {result.FOM} | FQ: {result.FQ}</p>
-        </>
-      )}
-    </div>
-)}
+            <div className="result-card">
+              {(result && result.group) ? (
+                result.group === "Nenhum ajuste selecionado" ? (
+                  <>
+                    <p><strong>{result.group}</strong></p>
+                    <p>FOM: - | FQ: -</p>
+                  </>
+                ) : (
+                  <>
+                    <p>Valores ajustados utilizando o grupo: <strong>{result.group}</strong></p>
+                    <p>FOM: {result.FOM} | FQ: {result.FQ}</p>
+                  </>
+                )
+              ) : (
+                <>
+                  <p><strong>Idades validas:</strong></p>
+                  <p>40 até 90 anos</p>
+                </>
+              )}
+            </div>
             <div className="button-group">
               <button className="calculate-button" onClick={handleCalculate}>Calcular</button>
               <button className="reset-button" onClick={handleReset}>Limpar</button>
@@ -573,7 +580,6 @@ function App() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
