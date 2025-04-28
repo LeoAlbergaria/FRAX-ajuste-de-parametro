@@ -321,3 +321,10 @@ body {
   accent-color: #007bff;
   cursor: pointer;
 }
+
+.two-line {
+  /* set a max-width so the browser will wrap at that point: */
+  max-width: 20ch;          
+  /* allow wrapping at spaces: */
+  word-wrap: break-word;   
+}

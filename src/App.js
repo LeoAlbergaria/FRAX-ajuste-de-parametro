@@ -371,7 +371,6 @@ function App() {
       const fqThresholds = hasDensitometria
         ? FQThresholdsByAgeDensito[idade]
         : FQThresholdsByAge[idade];
-      console.log(calculations)
 
       const bestResult = calculations.reduce((best, current) => {
         const bestFOMWeight = getRiskLevel(best.FOM, fomThresholds, hasDensitometria);
@@ -468,7 +467,7 @@ function App() {
             <div className="text-block">
               <div className="text">
                 <h2>Fraturas prévias [1]</h2>
-                <p>Número de fraturas prévias</p>
+                <p>Número de fraturas <br/>prévias</p>
               </div>
               <select placeholder="Fraturas" defaultValue="">
                 <option value="" disabled hidden>
@@ -485,7 +484,7 @@ function App() {
             <div className="text-block">
               <div className="text">
                 <h2>Quedas [2]</h2>
-                <p>Histórico de quedas no último ano</p>
+                <p>Histórico de queda<br/>no último ano</p>
               </div>
               <select placeholder="Quedas" defaultValue="">
                 <option value="" disabled hidden>
@@ -568,7 +567,7 @@ function App() {
                 )
               ) : (
                 <>
-                  <p><strong>Idades validas:</strong></p>
+                  <p><strong>Idades válidas:</strong></p>
                   <p>40 até 90 anos</p>
                 </>
               )}
