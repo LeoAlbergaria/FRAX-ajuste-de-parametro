@@ -59,8 +59,6 @@ function App() {
     const calculateForQuedas = () => {
       let fomTemp = fom;
       let fqTemp = fq;
-      console.log("QUEDAS");
-      console.log(quedas);
       if (quedas === "1") {
         fomTemp *= 1.2;
         fqTemp *= 1.2;
@@ -376,6 +374,8 @@ function App() {
         ? FQThresholdsByAgeDensito[idade]
         : FQThresholdsByAge[idade];
 
+        console.log(calculations);
+
       const bestResult = calculations.reduce((best, current) => {
         const bestFOMWeight = getRiskLevel(best.FOM, fomThresholds, hasDensitometria);
         const bestFQWeight = getRiskLevel(best.FQ, fqThresholds, hasDensitometria);
@@ -384,14 +384,23 @@ function App() {
 
         const bestTotal = bestFOMWeight + bestFQWeight;
         const currentTotal = currentFOMWeight + currentFQWeight;
-
+        
         if (currentTotal > bestTotal) {
           return current;
         }
 
         if (currentTotal === bestTotal) {
-          if (current.FOM > best.FOM) {
+          const currentSum = (current.FOM + current.FQ);
+          const bestSum = (best.FOM + best.FQ);
+
+          if (currentSum > bestSum) {
             return current;
+          }
+
+          if (currentSum === bestSum) {
+            if (current.FOM > best.FOM) {
+              return current;
+            }
           }
         }
 
