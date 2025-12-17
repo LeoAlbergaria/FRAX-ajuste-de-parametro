@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import "./App.css";
+import TBSPage from "./TBSPage";
 
 function App() {
   const [result, setResult] = useState({ FOM: null, FQ: null, group: null });
@@ -434,8 +436,11 @@ function App() {
   };
 
   return (
-      <div className="container">
-        {/* Left Part */}
+    <Router>
+      <Routes>
+        <Route path="/tbs" element={<TBSPage />} />
+        <Route path="/" element={
+          <div className="container">
         <div className="left">
           <div className="title-container">
             <div className="image-container">
@@ -593,7 +598,11 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+          </div>
+        } />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 }
 

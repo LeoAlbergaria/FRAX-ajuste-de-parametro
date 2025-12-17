@@ -108,7 +108,7 @@ body {
 
 .inputs-row input,
 .inputs-row-diabetes input {
-  width: 100px;
+  width: 150px;
   padding: 8px;
   font-size: 1rem;
   border: 2px solid #007bff;
@@ -160,21 +160,75 @@ body {
 }
 
 .text-block select {
-  padding: 10px;
+  padding: 8px 30px 8px 10px;
   border: 2px solid #007bff;
   border-radius: 8px;
   background-color: #f8f9fa;
   font-size: 1rem;
   width: 100%;
   color: #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px auto;
+  height: 38px;
 }
 
 .text-block select:focus {
   border-color: #0056b3;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* TBS Page dropdown styles to match App.js */
+.tbs-page .input-group select {
+  width: 150px; /* Match other input widths */
+  padding: 8px 30px 8px 10px; /* Match input padding, add space for arrow */
+  height: 38px; /* Match input height */
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  font-size: 1rem;
+  color: #333;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007bff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px auto;
+}
+
+.tbs-page .input-group select:invalid {
+  color: #6c757d; /* Cor do placeholder */
+}
+
+.tbs-page .input-group select option:first-child {
+  color: #6c757d; /* Cor do placeholder para a primeira opção */
+}
+
+.tbs-page .input-group select option:not(:first-child) {
+  color: #333; /* Cor do texto normal para as outras opções */
+}
+
+.tbs-page .input-group select:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  color: #333; /* Garante que o texto fique escuro quando selecionado */
+  outline: none;
+}
+
+/* Ensure consistent width for all inputs and select */
+.tbs-page .input-group input,
+.tbs-page .input-group select {
+  min-width: 100px;
+  box-sizing: border-box;
 }
 
 .calc-result {
