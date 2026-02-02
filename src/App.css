@@ -98,6 +98,13 @@ body {
   margin-bottom: 10px;
 }
 
+.tbs-subtitle {
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: #666;
+  margin-bottom: 15px;
+}
+
 .inputs-row,
 .inputs-row-diabetes {
   display: flex;

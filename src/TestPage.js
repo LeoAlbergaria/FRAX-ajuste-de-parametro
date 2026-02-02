@@ -68,8 +68,8 @@ function TestPage() {
     const mofAdjusted = 100 / (1 + Math.exp(-wMOF));
 
     return {
-      hfAdjusted: Number(mofAdjusted.toFixed(1)),
-      mofAdjusted: Number(hfAdjusted.toFixed(1))
+      hfAdjusted: Number(hfAdjusted.toFixed(1)),
+      mofAdjusted: Number(mofAdjusted.toFixed(1))
     };
   };
 
@@ -564,6 +564,7 @@ function TestPage() {
       <div className="right">
         <div className="title">
           <h2>Insira o FOM, FQ e Idade</h2>
+          <p className="tbs-subtitle">TBS e Fabricante são opcionais, necessários apenas para o cálculo do TBS</p>
           <div className="inputs-row">
             <div className="input-group">
               <input 

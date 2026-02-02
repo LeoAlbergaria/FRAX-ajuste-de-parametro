@@ -86,8 +86,8 @@ function TBSPage() {
   const mofAdjusted = 100 / (1 + Math.exp(-wMOF));
 
   return {
-    hfAdjusted: Number(mofAdjusted.toFixed(1)),
-    mofAdjusted: Number(hfAdjusted.toFixed(1))
+    hfAdjusted: Number(hfAdjusted.toFixed(1)),
+    mofAdjusted: Number(mofAdjusted.toFixed(1))
   };
 };
 
@@ -238,8 +238,8 @@ function TBSPage() {
             {result ? (
               <div className="result-simple">
                 <h3>Resultado</h3>
-                <p className="highlight"><strong>FOM Ajustado:</strong> {result.hfAdjusted}</p>
-                <p className="highlight"><strong>FQ Ajustado:</strong> {result.mofAdjusted}</p>
+                <p className="highlight"><strong>FOM Ajustado:</strong> {result.mofAdjusted}</p>
+                <p className="highlight"><strong>FQ Ajustado:</strong> {result.hfAdjusted}</p>
               </div>
             ) : (
               <>
