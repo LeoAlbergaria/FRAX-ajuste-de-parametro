@@ -16,6 +16,7 @@ function TestPage() {
   const [tbsData, setTbsData] = useState({
     tbs: '',
     fabricante: '',
+    sexo: '',
     fom: '',
     fq: '',
     idade: ''
@@ -614,6 +615,18 @@ function TestPage() {
                 <option value="" disabled>Fabricante</option>
                 <option value="HOLOGIC">HOLOGIC</option>
                 <option value="GE-LUNAR">GE-LUNAR</option>
+              </select>
+            </div>
+            <div className="input-group">
+              <select
+                name="sexo"
+                value={tbsData.sexo}
+                onChange={handleTBSChange}
+                className="select-input"
+              >
+                <option value="" disabled>Sexo</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
               </select>
             </div>
           </div>

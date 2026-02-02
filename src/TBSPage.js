@@ -5,6 +5,7 @@ function TBSPage() {
   const [formData, setFormData] = useState({
     tbs: '',
     fabricante: '',
+    sexo: '',
     fom: '',
     fq: '',
     idade: ''
@@ -191,6 +192,19 @@ function TBSPage() {
               </div>
               
               <div className="input-group">
+                <select
+                  name="sexo"
+                  value={formData.sexo}
+                  onChange={handleChange}
+                  className="select-input"
+                >
+                  <option value="" disabled>Sexo</option>
+                  <option value="M">Masculino</option>
+                  <option value="F">Feminino</option>
+                </select>
+              </div>
+              
+              <div className="input-group">
                 <input 
                   type="text" 
                   name="fom"
@@ -254,7 +268,7 @@ function TBSPage() {
                 type="button" 
                 className="reset-button"
                 onClick={() => {
-                  setFormData({ tbs: '', fabricante: '', fom: '', fq: '', idade: '' });
+                  setFormData({ tbs: '', fabricante: '', sexo: '', fom: '', fq: '', idade: '' });
                   setResult(null);
                 }}
               >
