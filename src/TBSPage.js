@@ -122,36 +122,11 @@ function TBSPage() {
     });
   };
 
-  const validateTBS = (value) => {
-    if (value === '') return true;
-    const regex = /^\d{1}(\.\d{1,3})?$/;
-    return regex.test(value);
-  };
-
-  const validateFOM = (value) => {
-    if (value === '') return true;
-    const regex = /^\d{1,2}(\.\d{1})?$/;
-    return regex.test(value);
-  };
-
-  const validateFQ = (value) => {
-    if (value === '') return true;
-    const regex = /^\d{1,2}(\.\d{1})?$/;
-    return regex.test(value);
-  };
-  
   // Validation while typing - allows any number 0-90
   const validateIdadeInput = (value) => {
     if (value === '') return true; // Allow empty while typing
     const num = parseInt(value, 10);
     return !isNaN(num) && num >= 0 && num <= 90;
-  };
-
-  // Validation on submit - enforces 40-90 range
-  const validateIdadeSubmit = (value) => {
-    if (value === '') return false; // Required field
-    const num = parseInt(value, 10);
-    return !isNaN(num) && num >= 40 && num <= 90;
   };
 
   // Handle age input changes
@@ -161,6 +136,7 @@ function TBSPage() {
       setFormData(prev => ({ ...prev, idade: value }));
     }
   };
+
 
   return (
     <div className="container tbs-page">

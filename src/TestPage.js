@@ -119,25 +119,6 @@ function TestPage() {
     }, 100);
   };
 
-  // Calculate TBS when values change
-  const handleTBSCalculate = () => {
-    if (tbsData.fom && tbsData.fq && tbsData.tbs && tbsData.idade) {
-      const adjusted = calculateTBSAdjusted(
-        tbsData.fom,
-        tbsData.fq,
-        tbsData.tbs,
-        tbsData.idade
-      );
-      
-      if (adjusted.hfAdjusted && adjusted.mofAdjusted) {
-        // Update the TBS input fields with calculated values
-        const fomInput = document.querySelector("input[placeholder='FOM TBS']");
-        const fqInput = document.querySelector("input[placeholder='FQ TBS']");
-        if (fomInput) fomInput.value = adjusted.mofAdjusted.toFixed(1);
-        if (fqInput) fqInput.value = adjusted.hfAdjusted.toFixed(1);
-      }
-    }
-  };
 
   const handleCalculate = () => {
     const fom = parseFloat(document.querySelector("input[placeholder='FOM']").value) || 0;
